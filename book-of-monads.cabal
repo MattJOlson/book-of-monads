@@ -26,7 +26,8 @@ extra-source-files:
 library
     hs-source-dirs: src
     default-extensions:
-      FlexibleInstances
+        DerivingStrategies
+      , FlexibleInstances
       , LambdaCase
       , OverloadedStrings
       , RecordWildCards
