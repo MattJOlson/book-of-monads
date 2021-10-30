@@ -67,3 +67,6 @@ map' f = foldr ((:) . f) [] -- hah, gotcha hlint
 -- 1.4. equivalent definitions of then_
 -- I am not writing this out
 
+-- notable comment:
+-- "being a monad is not a property of a concrete type (like Int or Bool), but
+--  of a type constructor (like Maybe or List)"
