@@ -54,3 +54,16 @@ f `nextS` g = \i -> (let (r, j) = f i in g r j)
 pure'' :: a -> State' s a
 pure'' x = \i -> (x, i)
 
+-- 1.2. Write (++)
+conc :: [a] -> [a] -> [a]
+  -- lints to "foldr (:) r xs but that doesn't seem like the spirit of the q
+conc [] r = r
+conc (x:xs) r = x : conc xs r
+
+-- 1.3. Write map
+map' :: (a -> b) -> [a] -> [b]
+map' f = foldr ((:) . f) [] -- hah, gotcha hlint
+
+-- 1.4. equivalent definitions of then_
+-- I am not writing this out
+
