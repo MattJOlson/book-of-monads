@@ -65,3 +65,30 @@ validateAge (Person age _) =
 -- good commentary on "pure" - it says "actually this is a pure value, but it's
 -- getting lifted into the functor" (although whomst among us hasn't pured a
 -- side-effectful thing...)
+
+-- some notes on Applicative `do`, seems neat
+
+-- 3.4 convert triples/4-tuples to and from nested pairs (car/cdr)
+-- god I hope this pays off in a later exercise
+tripleToNested :: (a, b, c) -> (a, (b, c))
+tripleToNested (x, y, z) = (x, (y, z))
+
+nestedToTriple :: (a, (b, c)) -> (a, b, c)
+nestedToTriple (x, (y, z)) = (x, y, z)
+
+quadToNested :: (a, b, c, d) -> (a, (b, (c, d)))
+quadToNested (x, y, z, w) = (x, (y, (z, w)))
+
+nestedToQuad :: (a, (b, (c, d))) -> (a, b, c, d)
+nestedToQuad (x, (y, (z, w))) = (x, y, z, w)
+
+-- 3.5 implement Monoidal in terms of Applicative
+class Functor f => Monoidal f where
+  unit :: f () -- base case, lifts a "0-tuple"
+  (**) :: f a -> f b -> f (a, b) -- combines two lifted things into a lifted tuple
+
+unit' :: Applicative f => f ()
+unit' = pure ()
+
+pair' :: Applicative f => f a -> f b -> f (a, b)
+pair' fa fb = (,) <$> fa <*> fb
